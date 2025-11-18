@@ -1,922 +1,390 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Avinash Reddy Nalla | Portfolio</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: #333;
-            overflow-x: hidden;
-        }
-
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            padding: 20px 50px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-            transition: all 0.3s ease;
-        }
-
-        nav.scrolled {
-            background: rgba(255, 255, 255, 0.95);
-            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        .logo {
-            font-size: 24px;
-            font-weight: bold;
-            color: white;
-            transition: color 0.3s ease;
-        }
-
-        nav.scrolled .logo {
-            color: #667eea;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 30px;
-            list-style: none;
-        }
-
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        nav.scrolled .nav-links a {
-            color: #333;
-        }
-
-        .nav-links a:hover {
-            transform: translateY(-2px);
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: #667eea;
-            transition: width 0.3s ease;
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-
-        .hero {
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            color: white;
-            position: relative;
-            padding: 0 20px;
-            color: #555;
-        }
-
-        .hero-content h1 {
-            font-size: 64px;
-            margin-bottom: 20px;
-            animation: fadeInUp 1s ease;
-            color: #555;
-        }
-
-        .hero-content p {
-            font-size: 24px;
-            margin-bottom: 15px;
-            animation: fadeInUp 1s ease 0.2s backwards;
-            color: #555;
-        }
-
-        .hero-content .subtitle {
-            font-size: 18px;
-            margin-bottom: 30px;
-            opacity: 0.9;
-            animation: fadeInUp 1s ease 0.3s backwards;
-            color: #555;
-        }
-
-        .cta-buttons {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            flex-wrap: wrap;
-            animation: fadeInUp 1s ease 0.4s backwards;
-        }
-
-        .cta-button {
-            padding: 15px 40px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            display: inline-block;
-        }
-
-        .cta-button:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-        }
-
-        .cta-button.secondary {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);;
-            border: 2px solid white;
-            color: white;
-        }
-
-        .cta-button.secondary:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-        }
-
-        section {
-            padding: 100px 50px;
-            background: white;
-        }
-
-        section:nth-child(even) {
-            background: #f8f9fa;
-        }
-
-        .section-title {
-            font-size: 42px;
-            text-align: center;
-            margin-bottom: 60px;
-            color: #333;
-        }
-
-        .about-content {
-            max-width: 900px;
-            margin: 0 auto;
-            text-align: center;
-            font-size: 18px;
-            line-height: 1.8;
-            color: #555;
-        }
-
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 30px;
-            max-width: 1000px;
-            margin: 40px auto 0;
-        }
-
-        .stat-card {
-            text-align: center;
-            padding: 30px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 15px;
-            color: white;
-            transition: transform 0.3s ease;
-        }
-
-        .stat-card:hover {
-            transform: translateY(-10px);
-        }
-
-        .stat-number {
-            font-size: 42px;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-
-        .stat-label {
-            font-size: 16px;
-            opacity: 0.9;
-        }
-
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 40px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .project-card {
-            background: white;
-            border-radius: 20px;
-            overflow: hidden;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        .project-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-        }
-
-        .project-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            padding: 30px;
-            color: white;
-        }
-
-        .project-header h3 {
-            font-size: 24px;
-            margin-bottom: 10px;
-        }
-
-        .project-content {
-            padding: 30px;
-        }
-
-        .project-content p {
-            font-size: 16px;
-            line-height: 1.6;
-            color: #555;
-            margin-bottom: 15px;
-        }
-
-        .project-tech {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .tech-tag {
-            padding: 5px 15px;
-            background: #e8eaf6;
-            color: #667eea;
-            border-radius: 20px;
-            font-size: 14px;
-            font-weight: 500;
-        }
-
-        .experience-timeline {
-            max-width: 900px;
-            margin: 0 auto;
-            position: relative;
-        }
-
-        .timeline-item {
-            padding: 30px;
-            background: white;
-            border-radius: 15px;
-            margin-bottom: 30px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-        }
-
-        .timeline-item:hover {
-            transform: translateX(10px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-        }
-
-        .timeline-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: start;
-            margin-bottom: 15px;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .timeline-title {
-            font-size: 24px;
-            color: #667eea;
-            font-weight: bold;
-        }
-
-        .timeline-company {
-            font-size: 18px;
-            color: #555;
-            margin-bottom: 5px;
-        }
-
-        .timeline-date {
-            color: #888;
-            font-size: 14px;
-        }
-
-        .timeline-description {
-            margin-top: 15px;
-        }
-
-        .timeline-description li {
-            margin-bottom: 10px;
-            color: #555;
-            line-height: 1.6;
-        }
-
-        .skills-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-        }
-
-        .skill-card {
-            padding: 30px;
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-        }
-
-        .skill-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-        }
-
-        .skill-card h3 {
-            font-size: 24px;
-            margin-bottom: 20px;
-            color: #667eea;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .skill-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .skill-item {
-            padding: 8px 16px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border-radius: 20px;
-            font-size: 14px;
-        }
-
-        .achievements-grid {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-        }
-
-        .achievement-card {
-            padding: 25px;
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            border-left: 4px solid #667eea;
-            transition: all 0.3s ease;
-        }
-
-        .achievement-card:hover {
-            transform: translateX(5px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-        }
-
-        .achievement-card h4 {
-            color: #667eea;
-            margin-bottom: 8px;
-            font-size: 16px;
-        }
-
-        .achievement-card p {
-            color: #666;
-            font-size: 14px;
-        }
-
-        .contact-section {
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
-        .contact-info {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-            margin-bottom: 50px;
-        }
-
-        .contact-card {
-            text-align: center;
-            padding: 30px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 15px;
-            color: white;
-            transition: all 0.3s ease;
-        }
-
-        .contact-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        }
-
-        .contact-card h3 {
-            font-size: 20px;
-            margin-bottom: 15px;
-        }
-
-        .contact-card a {
-            color: white;
-            text-decoration: none;
-            word-break: break-all;
-        }
-
-        .contact-card a:hover {
-            text-decoration: underline;
-        }
-
-        .contact-form {
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .form-group {
-            margin-bottom: 25px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 500;
-        }
-
-        .form-group input,
-        .form-group textarea {
-            width: 100%;
-            padding: 15px;
-            border: 2px solid #e0e0e0;
-            border-radius: 10px;
-            font-size: 16px;
-            transition: all 0.3s ease;
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: #667eea;
-        }
-
-        .form-group textarea {
-            resize: vertical;
-            min-height: 150px;
-        }
-
-        .submit-button {
-            width: 100%;
-            padding: 15px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-size: 18px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .submit-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
-        }
-
-        footer {
-            background: #333;
-            color: white;
-            text-align: center;
-            padding: 30px;
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @media (max-width: 768px) {
-            nav {
-                padding: 20px;
-                flex-direction: column;
-                gap: 15px;
-            }
-
-            .logo {
-                font-size: 20px;
-            }
-
-            .hero-content h1 {
-                font-size: 36px;
-            }
-
-            .hero-content p {
-                font-size: 18px;
-            }
-
-            .hero-content .subtitle {
-                font-size: 16px;
-            }
-
-            section {
-                padding: 60px 20px;
-            }
-
-            .nav-links {
-                gap: 15px;
-                font-size: 14px;
-            }
-
-            .section-title {
-                font-size: 32px;
-            }
-
-            .projects-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .achievements-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .timeline-item {
-                padding: 20px;
-            }
-        }
-    </style>
-</head>
-<body>
-    <nav id="navbar">
-        <div class="logo">Avinash Reddy Nalla</div>
-        <ul class="nav-links">
-            <li><a href="#home">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#experience">Experience</a></li>
-            <li><a href="#projects">Projects</a></li>
-            <li><a href="#skills">Skills</a></li>
-            <li><a href="#achievements">Achievements</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
-    </nav>
-
-    <section class="hero" id="home">
-        <div class="hero-content">
-            <h1>Avinash Reddy Nalla</h1>
-            <p class="subtitle">Computer Science Graduate with expertise in building scalable web applications and data-driven solutions</p>
-            <div class="cta-buttons">
-                <a href="#projects" class="cta-button">View Projects</a>
-                <a href="#contact" class="cta-button secondary">Get In Touch</a>
+import React, { useRef } from 'react';
+import { Github, Linkedin, Mail, Phone, MapPin, Code, Briefcase, GraduationCap, Award, ExternalLink, Database, Globe } from 'lucide-react';
+
+export default function Portfolio() {
+  const aboutRef = useRef(null);
+  const educationRef = useRef(null);
+  const skillsRef = useRef(null);
+  const experienceRef = useRef(null);
+  const projectsRef = useRef(null);
+  const certificationsRef = useRef(null);
+  const contactRef = useRef(null);
+
+  const scrollToSection = (ref) => {
+    ref.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
+  const skills = {
+    'Programming Languages': ['Python', 'Java', 'C', 'SQL'],
+    'Web Technologies': ['HTML5', 'CSS3', 'JavaScript', 'React.js', 'Tailwind CSS', 'REST APIs'],
+    'Data & Analytics': ['Pandas', 'NumPy', 'Matplotlib', 'Seaborn', 'Power BI', 'Tableau', 'Excel', 'DAX'],
+    'Databases': ['MySQL', 'MongoDB'],
+    'Tools & Platforms': ['Git', 'GitHub', 'VS Code'],
+    'Soft Skills': ['Quick Learner', 'Detail-oriented', 'Analytical Thinking', 'Team Collaboration', 'Problem Solving', 'Communication', 'Time Management']
+  };
+
+  const experiences = [
+    {
+      title: 'Full Stack Web Development Intern',
+      company: 'Techprayan Solutions',
+      duration: 'Oct 2024 – Jan 2025',
+      description: [
+        'Designed modular and responsive web interfaces using HTML, CSS, and JavaScript',
+        'Collaborated on developing reusable frontend components and ensured cross-browser compatibility',
+        'Engaged in code reviews, version control (Git), and agile sprints throughout the development lifecycle'
+      ]
+    },
+    {
+      title: 'Data Analytics Intern',
+      company: 'IBM SkillsBuild',
+      duration: 'Jun 2024 – Aug 2024',
+      description: [
+        'Cleaned, transformed, and analyzed large datasets using Python (Pandas, NumPy) and SQL for KPI tracking',
+        'Built interactive Power BI dashboards visualizing business metrics and improving decision-making efficiency',
+        'Conducted exploratory data analysis (EDA) and statistical visualization for actionable insights'
+      ]
+    }
+  ];
+
+  const projects = [
+    {
+      title: 'AI-Enhanced Question Paper Generation System',
+      description: 'An intelligent web application designed to revolutionize assessment creation for educators. The system leverages GPT API and natural language processing (spaCy) to automatically generate customized question papers based on user-defined parameters such as subject topic, difficulty level (easy, medium, hard), question types (MCQs, short answer, long answer), and number of questions. Built with a Flask backend for robust API handling and a modern React.js frontend for seamless user experience. Educators can input their requirements, instantly generate question papers, preview the generated content, make modifications if needed, and export the final paper in multiple formats (PDF, Word). The SQL database stores question templates and user preferences for future use, making the tool both powerful and user-friendly.',
+      tech: ['Flask', 'React.js', 'GPT API', 'spaCy', 'SQL'],
+      highlights: ['Automated question generation based on custom parameters', 'Real-time preview with edit capabilities', 'Multi-format export (PDF/Word)', 'Database-driven template management'],
+      github: 'https://github.com/Avinashreddy001'
+    },
+    {
+      title: 'E-Commerce Sales Performance Dashboard',
+      description: 'A comprehensive business intelligence dashboard built in Power BI that transforms raw e-commerce sales data into actionable insights. The dashboard analyzes $12.64 million in total sales across 22 states and 4 distinct customer segments (Consumer, Corporate, Home Office, Small Business). Using advanced DAX (Data Analysis Expressions) formulas, it calculates key performance indicators including profit margins (12.47%), year-over-year growth trends, regional performance comparisons, and product category analysis. Features dynamic filtering that allows stakeholders to drill down by region, time period, product category, or customer segment. Interactive visualizations include sales trends over time, geographic heat maps showing state-wise performance, profit margin analysis by category, and customer segment contribution charts. This tool empowers decision-makers to identify growth opportunities, optimize inventory, and develop targeted marketing strategies based on data-driven insights.',
+      tech: ['Power BI', 'DAX', 'Data Analysis'],
+      highlights: ['$12.64M sales analysis across 22 states', 'Profit margin tracking and optimization (12.47%)', 'Year-over-year growth trend analysis', 'Dynamic filtering by region, category, and segment'],
+      github: 'https://github.com/Avinashreddy001'
+    },
+    {
+      title: 'Hostel Recommendation System',
+      description: 'An intelligent machine learning system that helps students and working professionals find affordable hostel accommodations by predicting rental prices with 97% accuracy. The system uses Random Forest Regression algorithm trained on extensive hostel data including features like location, amenities (WiFi, AC, food), room type (single/shared), distance from educational institutions, and neighborhood safety ratings. Performed comprehensive data preprocessing including handling missing values, outlier detection, and feature scaling. Engineered new features such as "amenity score" and "location convenience index" to improve model accuracy. The model analyzes user requirements and budget constraints to recommend the best hostel options. Includes interactive Power BI dashboards that visualize hostel distribution by price range, amenity comparison across different locations, and price trend analysis. Users can input their preferences (budget, location, amenities) and receive personalized hostel recommendations with predicted rental costs.',
+      tech: ['Python', 'Pandas', 'NumPy', 'Seaborn', 'Power BI', 'Machine Learning'],
+      highlights: ['97% price prediction accuracy using Random Forest', 'Advanced feature engineering for better recommendations', 'Interactive dashboards for data exploration', 'Personalized recommendations based on user preferences'],
+      github: 'https://github.com/Avinashreddy001'
+    },
+    {
+      title: 'Heart Monitoring & Emergency Alert System',
+      description: 'A life-saving IoT healthcare solution designed for remote patient monitoring, particularly beneficial for elderly patients and those with chronic heart conditions living in rural or underserved areas. The system uses pulse sensors connected to Arduino microcontroller to continuously monitor vital signs including heart rate, pulse rate, and blood oxygen levels. When abnormal readings are detected (heart rate too high/low, irregular pulse patterns), the system immediately triggers automated SMS alerts via Twilio API to designated caretakers, family members, or medical staff with patient information and current vital signs. Python scripts handle data collection, real-time analysis, and alert generation. The system logs all vital sign data for historical analysis and trend monitoring. Designed as a low-cost, easy-to-deploy solution that can be set up in homes without extensive technical knowledge. Particularly valuable in areas lacking immediate access to medical facilities, providing crucial minutes that can save lives during cardiac emergencies.',
+      tech: ['Arduino', 'Python', 'Twilio API', 'IoT'],
+      highlights: ['Real-time continuous vital signs monitoring', 'Instant SMS alerts to caretakers during emergencies', 'Historical data logging for trend analysis', 'Low-cost deployment for rural/remote areas'],
+      github: 'https://github.com/Avinashreddy001'
+    },
+    {
+      title: 'Titanic Survival Prediction',
+      description: 'A comprehensive machine learning classification project that analyzes the famous Titanic dataset containing information about 891 passengers to predict survival outcomes and uncover the factors that determined who survived the disaster. The project involved extensive data preprocessing including handling missing age values through intelligent imputation, extracting passenger titles (Mr., Mrs., Miss) from names as a proxy for social status, and creating new features like family size by combining siblings/spouses and parents/children counts. Performed exploratory data analysis using statistical visualizations to understand data distributions and relationships between variables. Conducted rigorous hypothesis testing to validate key findings: women had significantly higher survival rates than men, first-class passengers were more likely to survive than third-class, and children had better survival odds than adults. Built and tuned multiple classification models (Logistic Regression, Decision Trees, Random Forest) achieving 78%+ prediction accuracy. The project demonstrates strong understanding of the complete machine learning pipeline from data cleaning to model evaluation, and the ability to extract meaningful insights from complex datasets.',
+      tech: ['Python', 'Machine Learning', 'Statistical Analysis'],
+      highlights: ['78%+ prediction accuracy on test data', 'Statistical hypothesis testing for survival factors', 'Advanced feature engineering (title extraction, family size)', 'Comprehensive EDA with data visualization'],
+      github: 'https://github.com/Avinashreddy001'
+    }
+  ];
+
+  const certifications = [
+    'Data Analysis with Python - IBM SkillsBuild (2025)',
+    'Full Stack Web Development - IBM SkillsBuild (2024)',
+    'Power BI and Excel Mastery - IBM SkillsBuild (2024)',
+    'Data Visualization - TATA Group (2024)',
+    'Data Analysis - LinkedIn Learning (2024)',
+    'Java Programming - Udemy (2023)',
+    'Career Edge: Young Professional - TCS iON (2023)'
+  ];
+
+  const achievements = [
+    'Presented paper on "AI in Education" at 3rd International Conference on Multifunctional Materials (2024)',
+    'Finalist - Machine Learning Challenge 2023',
+    'Participated in 24-hour Full-stack Web Development Hackathon 2023',
+    'Coding Ninjas - Innovative India Coding Championship (2023)',
+    'Participated in IUCEE Design Thinking Workshop'
+  ];
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
+      {/* Hero Section */}
+      <div className="relative min-h-screen flex items-center justify-center px-4">
+        <div className="absolute inset-0 bg-black opacity-50"></div>
+        <div className="relative z-10 text-center text-white max-w-4xl mx-auto">
+          <div className="mb-6">
+            <div className="w-32 h-32 mx-auto rounded-full bg-gradient-to-r from-purple-400 to-pink-400 flex items-center justify-center text-4xl font-bold mb-4">
+              AR
             </div>
+          </div>
+          <h1 className="text-5xl md:text-7xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-400">
+            Avinash Reddy Nalla
+          </h1>
+          <p className="text-xl md:text-2xl mb-2 text-gray-300">Data Analyst | Full Stack Developer</p>
+          <p className="text-lg text-gray-400 mb-8">Transforming data into insights and building innovative web solutions</p>
+          
+          <div className="flex gap-4 justify-center mb-8">
+            <a href="https://github.com/Avinashreddy001" target="_blank" rel="noopener noreferrer" className="p-3 bg-white bg-opacity-10 rounded-full hover:bg-opacity-20 transition">
+              <Github className="w-6 h-6" />
+            </a>
+            <a href="https://www.linkedin.com/in/avinash-reddy-nalla-1786a4233" target="_blank" rel="noopener noreferrer" className="p-3 bg-white bg-opacity-10 rounded-full hover:bg-opacity-20 transition">
+              <Linkedin className="w-6 h-6" />
+            </a>
+            <a href="mailto:avinashreddy600@gmail.com" className="p-3 bg-white bg-opacity-10 rounded-full hover:bg-opacity-20 transition">
+              <Mail className="w-6 h-6" />
+            </a>
+          </div>
+
+          <div className="flex gap-3 justify-center flex-wrap">
+            <button onClick={() => scrollToSection(aboutRef)} className="px-5 py-2 rounded-full transition text-sm md:text-base bg-white bg-opacity-10 text-white hover:bg-opacity-20">
+              About Me
+            </button>
+            <button onClick={() => scrollToSection(educationRef)} className="px-5 py-2 rounded-full transition text-sm md:text-base bg-white bg-opacity-10 text-white hover:bg-opacity-20">
+              Education
+            </button>
+            <button onClick={() => scrollToSection(skillsRef)} className="px-5 py-2 rounded-full transition text-sm md:text-base bg-white bg-opacity-10 text-white hover:bg-opacity-20">
+              Skills
+            </button>
+            <button onClick={() => scrollToSection(experienceRef)} className="px-5 py-2 rounded-full transition text-sm md:text-base bg-white bg-opacity-10 text-white hover:bg-opacity-20">
+              Experience
+            </button>
+            <button onClick={() => scrollToSection(projectsRef)} className="px-5 py-2 rounded-full transition text-sm md:text-base bg-white bg-opacity-10 text-white hover:bg-opacity-20">
+              Projects
+            </button>
+            <button onClick={() => scrollToSection(certificationsRef)} className="px-5 py-2 rounded-full transition text-sm md:text-base bg-white bg-opacity-10 text-white hover:bg-opacity-20">
+              Certifications
+            </button>
+            <button onClick={() => scrollToSection(contactRef)} className="px-5 py-2 rounded-full transition text-sm md:text-base bg-white bg-opacity-10 text-white hover:bg-opacity-20">
+              Contact
+            </button>
+          </div>
         </div>
-    </section>
+      </div>
 
-    <section id="about">
-        <h2 class="section-title">About Me</h2>
-        <div class="about-content">
-            <p>Motivated and result-driven Computer Science graduate with hands-on experience in data analytics, full-stack development, and machine learning. Eager to apply my technical expertise, analytical mindset, and collaborative approach to deliver data-driven solutions and scalable web applications that drive business success and user engagement.</p>
+      {/* All Content Sections Visible */}
+      <div className="max-w-6xl mx-auto px-4 py-16 space-y-16">
+        {/* About Section */}
+        <div ref={aboutRef} className="bg-white bg-opacity-10 backdrop-blur-lg rounded-2xl p-8 text-white scroll-mt-4">
+          <div className="flex items-center gap-3 mb-6">
+            <Code className="w-8 h-8 text-purple-400" />
+            <h2 className="text-3xl font-bold">About Me</h2>
+          </div>
+          <p className="text-lg text-gray-300 leading-relaxed mb-4">
+            I'm a motivated and result-driven Computer Science graduate from KG Reddy College of Engineering and Technology with a CGPA of 8.75/10. I specialize in data analytics, full-stack development, and machine learning, bringing a unique blend of analytical thinking and technical expertise to every project.
+          </p>
+          <p className="text-lg text-gray-300 leading-relaxed mb-4">
+            My experience spans from building interactive Power BI dashboards that analyze millions in sales data to developing AI-powered educational tools using GPT API. I'm proficient in Python, SQL, React.js, and various data visualization tools, with a proven track record of delivering actionable insights and scalable web applications.
+          </p>
+          <p className="text-lg text-gray-300 leading-relaxed">
+            I'm passionate about leveraging technology to solve real-world problems and am actively seeking opportunities where I can contribute to impactful projects while continuously advancing my expertise. As a quick learner with strong analytical thinking, I excel at translating complex data into strategic recommendations and creating user-centric solutions.
+          </p>
         </div>
-        <div class="stats">
-            <div class="stat-card">
-                <div class="stat-number">8.75</div>
-                <div class="stat-label">CGPA</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number">3+</div>
-                <div class="stat-label">Major Projects</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number">2</div>
-                <div class="stat-label">Internships</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number">7+</div>
-                <div class="stat-label">Certifications</div>
-            </div>
-        </div>
-    </section>
 
-    <section id="experience">
-        <h2 class="section-title">Experience</h2>
-        <div class="experience-timeline">
-            <div class="timeline-item">
-                <div class="timeline-header">
-                    <div>
-                        <div class="timeline-title">Full Stack Web Development Intern</div>
-                        <div class="timeline-company">Techprayan Solutions</div>
-                    </div>
-                    <div class="timeline-date">Oct 2024 – Jan 2025</div>
+        {/* Education Section */}
+        <div ref={educationRef} className="bg-white bg-opacity-10 backdrop-blur-lg rounded-2xl p-8 text-white scroll-mt-4">
+          <div className="flex items-center gap-3 mb-6">
+            <GraduationCap className="w-8 h-8 text-purple-400" />
+            <h2 className="text-3xl font-bold">Education</h2>
+          </div>
+          <div className="space-y-6">
+            <div className="border-l-4 border-purple-400 pl-6">
+              <h3 className="text-2xl font-semibold mb-2">Bachelor of Technology in Computer Science & Engineering</h3>
+              <p className="text-purple-400 mb-2">KG Reddy College of Engineering and Technology | 2021 - 2025</p>
+              <p className="text-gray-300 text-xl mb-3">CGPA: 8.75/10</p>
+              <ul className="mt-3 text-gray-300 space-y-2">
+                <li>• Specialized in Data Analytics, Machine Learning, and Full Stack Development</li>
+                <li>• Relevant Coursework: Data Structures, Algorithms, Database Management, Web Technologies</li>
+                <li>• Final Year Project: AI-Enhanced Question Paper and Responses Generation System</li>
+                <li>• Active participant in coding competitions and technical conferences</li>
+              </ul>
+            </div>
+            
+            <div className="border-l-4 border-pink-400 pl-6">
+              <h3 className="text-2xl font-semibold mb-2">Intermediate (MPC)</h3>
+              <p className="text-pink-400 mb-2">Shivani Junior College | 2019 - 2021</p>
+              <p className="text-gray-300 text-xl">Percentage: 98%</p>
+            </div>
+            
+            <div className="border-l-4 border-blue-400 pl-6">
+              <h3 className="text-2xl font-semibold mb-2">10th Grade (SSC)</h3>
+              <p className="text-blue-400 mb-2">Sun Valley High School | 2018 - 2019</p>
+              <p className="text-gray-300 text-xl">Percentage: 97%</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Skills Section */}
+        <div ref={skillsRef} className="bg-white bg-opacity-10 backdrop-blur-lg rounded-2xl p-8 text-white scroll-mt-4">
+          <div className="flex items-center gap-3 mb-6">
+            <Award className="w-8 h-8 text-purple-400" />
+            <h2 className="text-3xl font-bold">Technical Skills</h2>
+          </div>
+          <div className="grid md:grid-cols-2 gap-6">
+            {Object.entries(skills).map(([category, skillList]) => (
+              <div key={category} className="bg-white bg-opacity-5 rounded-xl p-6">
+                <h3 className="text-xl font-semibold mb-4 text-purple-400">{category}</h3>
+                <div className="flex flex-wrap gap-2">
+                  {skillList.map((skill) => (
+                    <span
+                      key={skill}
+                      className="px-4 py-2 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full text-sm"
+                    >
+                      {skill}
+                    </span>
+                  ))}
                 </div>
-                <ul class="timeline-description">
-                    <li>Designed modular and responsive web interfaces using HTML, CSS, and JavaScript</li>
-                    <li>Developed and implemented modular, responsive web interfaces using HTML, CSS, and JavaScript, enhancing user engagement by 25% through improved load times and cross-browser compatibility.</li>
-                    <li>Collaborated with a team of 3 developers to create reusable frontend components, reducing development time by 20% and improving code maintainability.</li>
-                    <li>Collaborated on developing reusable frontend components and ensured cross-browser compatibility</li>
-                    <li>Optimized frontend performance, achieving a 30% reduction in page load times and contributing to a 20% increase in user session duration.</li>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Experience Section */}
+        <div ref={experienceRef} className="bg-white bg-opacity-10 backdrop-blur-lg rounded-2xl p-8 text-white scroll-mt-4">
+          <div className="flex items-center gap-3 mb-6">
+            <Briefcase className="w-8 h-8 text-purple-400" />
+            <h2 className="text-3xl font-bold">Internship Experience</h2>
+          </div>
+          <div className="space-y-8">
+            {experiences.map((exp, index) => (
+              <div key={index} className="bg-white bg-opacity-5 rounded-xl p-6">
+                <h3 className="text-2xl font-semibold mb-2">{exp.title}</h3>
+                <p className="text-purple-400 mb-1">{exp.company}</p>
+                <p className="text-gray-400 mb-4">{exp.duration}</p>
+                <ul className="space-y-2 text-gray-300">
+                  {exp.description.map((item, i) => (
+                    <li key={i}>• {item}</li>
+                  ))}
                 </ul>
-            </div>
-
-            <div class="timeline-item">
-                <div class="timeline-header">
-                    <div>
-                        <div class="timeline-title">Data Analytics Intern</div>
-                        <div class="timeline-company">IBM SkillsBuild</div>
-                    </div>
-                    <div class="timeline-date">Jun 2024 – Aug 2024</div>
-                </div>
-                <ul class="timeline-description">
-                    <li>Extracted, cleaned, and visualized multi-source datasets using Python, SQL, and Excel</li>
-                    <li>Led data extraction and transformation processes, cleaning and integrating datasets from 3+ sources to improve accuracy by 25% and reduce processing time by 20%</li>
-                    <li>Developed interactive Power BI dashboards and reports, enabling stakeholders to monitor KPIs and trends with 15% faster decision-making capabilities</li>
-                    <li>Generated actionable insights from data analysis, driving a 10% improvement in simulated business decision outcomes</li>
-                    <li>Delivered actionable insights that enhanced decision-making capabilities within simulated business scenarios</li>
-                    <li>Presented data-driven recommendations to senior leadership, contributing to optimized resource allocation and strategic planning in simulated scenarios</li>
-                </ul>
-            </div>
+              </div>
+            ))}
+          </div>
         </div>
-    </section>
 
-    <section id="projects">
-        <h2 class="section-title">Featured Projects</h2>
-        <div class="projects-grid">
-            <div class="project-card">
-                <div class="project-header">
-                    <h3>AI-Enhanced Question Paper Generation System</h3>
+        {/* Projects Section */}
+        <div ref={projectsRef} className="bg-white bg-opacity-10 backdrop-blur-lg rounded-2xl p-8 text-white scroll-mt-4">
+          <div className="flex items-center gap-3 mb-6">
+            <Code className="w-8 h-8 text-purple-400" />
+            <h2 className="text-3xl font-bold">Featured Projects</h2>
+          </div>
+          <div className="grid md:grid-cols-2 gap-6">
+            {projects.map((project, index) => (
+              <div
+                key={index}
+                className="bg-white bg-opacity-5 rounded-xl p-6 hover:bg-opacity-10 transition"
+              >
+                <h3 className="text-xl font-semibold mb-3 text-purple-400">
+                  {project.title}
+                </h3>
+                <p className="text-gray-300 mb-4">{project.description}</p>
+                <div className="flex flex-wrap gap-2 mb-4">
+                  {project.tech.map((tech) => (
+                    <span key={tech} className="px-3 py-1 bg-purple-900 bg-opacity-50 rounded text-sm">
+                      {tech}
+                    </span>
+                  ))}
                 </div>
-                <div class="project-content">
-                    <p>Developed a smart educational tool to generate question papers using GPT API and spaCy based on customizable inputs like topic, difficulty, and question type.</p>
-                    <p>Designed and deployed an intelligent educational tool that leverages NLP and AI to automate question paper generation, reducing educator workload by 40%. Developed a robust backend using Flask and SQL to process customizable inputs (topics, difficulty levels, question types) and integrated with React.js for an intuitive educator interface. Implemented advanced NLP algorithms using GPT API and spaCy to generate high-quality, contextually relevant questions with 95% accuracy. Enhanced educator workflows by enabling real-time previews, modifications, and export capabilities for various assessment formats, improving efficiency in curriculum delivery by 30%.</p>
-                    <p>Integrated Flask backend with React.js frontend and SQL to create a seamless educator interface. Enabled educators to preview, modify, and export question sets for various assessments.</p>
-                    <div class="project-tech">
-                        <span class="tech-tag">Python</span>
-                        <span class="tech-tag">Flask</span>
-                        <span class="tech-tag">React.js</span>
-                        <span class="tech-tag">GPT API</span>
-                        <span class="tech-tag">spaCy</span>
-                        <span class="tech-tag">SQL</span>
-                    </div>
+                <div className="space-y-1 text-sm text-gray-400 mb-4">
+                  {project.highlights.map((highlight, i) => (
+                    <p key={i}>✓ {highlight}</p>
+                  ))}
                 </div>
-            </div>
-
-            <div class="project-card">
-                <div class="project-header">
-                    <h3>Hostel Recommendation System</h3>
-                </div>
-                <div class="project-content">
-                    <p>Built a rental price prediction and recommendation engine using Random Forest Regression with 97% accuracy.</p>
-                    <p> Developed a high-accuracy rental price prediction system using Random Forest Regression, achieving 97% accuracy in forecasting. Engineered comprehensive data preprocessing pipelines, optimized feature selection, and created insightful visualizations to enhance decision-making. Designed and deployed interactive Power BI dashboards, improving hostel search efficiency by 45% for users. Leveraged machine learning and data analytics to deliver actionable insights and streamlined property recommendations.</p>
-                    <p>Performed extensive data preprocessing, feature selection, and visualization using Pandas, NumPy, and Seaborn. Delivered Power BI dashboards for user-friendly hostel search insights.</p>
-                    <div class="project-tech">
-                        <span class="tech-tag">Python</span>
-                        <span class="tech-tag">Machine Learning</span>
-                        <span class="tech-tag">Random Forest</span>
-                        <span class="tech-tag">Pandas</span>
-                        <span class="tech-tag">Power BI</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="project-card">
-                <div class="project-header">
-                    <h3>Heart Monitoring & Emergency Alert System</h3>
-                </div>
-                <div class="project-content">
-                    <p>Engineered an IoT-based solution to monitor patient vitals and trigger real-time SMS alerts during abnormal readings.</p>
-                    <p>Developed a cost-effective IoT-based platform to monitor patient vitals in real-time, achieving a 95% accuracy rate in detecting abnormal readings. Engineered a Python-based data processing system integrated with Arduino microcontrollers and pulse sensors to capture and analyze vital signs. Implemented the Twilio API to deliver real-time SMS alerts to caregivers and medical professionals, reducing emergency response times by 30%. Designed the solution specifically for low-cost deployment in rural and remote areas, providing critical medical monitoring where traditional healthcare infrastructure is limited.</p>
-                    <p>Used pulse sensors, Arduino, Python, and Twilio API to collect data and send alerts to caretakers or medical staff. Designed for low-cost deployment in rural and remote areas.</p>
-                    <div class="project-tech">
-                        <span class="tech-tag">IoT</span>
-                        <span class="tech-tag">Arduino</span>
-                        <span class="tech-tag">Python</span>
-                        <span class="tech-tag">Twilio API</span>
-                    </div>
-                </div>
-            </div>
+                <a
+                  href={project.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-purple-400 hover:text-purple-300 transition"
+                >
+                  <Github className="w-4 h-4" />
+                  View on GitHub <ExternalLink className="w-4 h-4" />
+                </a>
+              </div>
+            ))}
+          </div>
         </div>
-    </section>
 
-    <section id="skills">
-        <h2 class="section-title">Technical Skills</h2>
-        <div class="skills-container">
-            <div class="skill-card">
-                <h3>💻 Programming Languages</h3>
-                <div class="skill-list">
-                    <span class="skill-item">Python</span>
-                    <span class="skill-item">Java</span>
-                    <span class="skill-item">C</span>
+        {/* Certifications Section */}
+        <div ref={certificationsRef} className="bg-white bg-opacity-10 backdrop-blur-lg rounded-2xl p-8 text-white scroll-mt-4">
+          <div className="flex items-center gap-3 mb-6">
+            <Award className="w-8 h-8 text-purple-400" />
+            <h2 className="text-3xl font-bold">Certifications & Achievements</h2>
+          </div>
+          
+          <div className="mb-8">
+            <h3 className="text-xl font-semibold mb-4 text-purple-400">Certifications</h3>
+            <div className="grid md:grid-cols-2 gap-4">
+              {certifications.map((cert, index) => (
+                <div key={index} className="bg-white bg-opacity-5 rounded-lg p-4 flex items-start gap-3">
+                  <Award className="w-5 h-5 text-purple-400 flex-shrink-0 mt-1" />
+                  <span className="text-gray-300">{cert}</span>
                 </div>
+              ))}
             </div>
+          </div>
 
-            <div class="skill-card">
-                <h3>🌐 Web Technologies</h3>
-                <div class="skill-list">
-                    <span class="skill-item">HTML</span>
-                    <span class="skill-item">CSS</span>
-                    <span class="skill-item">JavaScript</span>
-                    <span class="skill-item">React.js</span>
+          <div>
+            <h3 className="text-xl font-semibold mb-4 text-purple-400">Achievements</h3>
+            <div className="space-y-3">
+              {achievements.map((achievement, index) => (
+                <div key={index} className="bg-white bg-opacity-5 rounded-lg p-4 flex items-start gap-3">
+                  <span className="text-purple-400">🏆</span>
+                  <span className="text-gray-300">{achievement}</span>
                 </div>
+              ))}
             </div>
-
-            <div class="skill-card">
-                <h3>📊 Data & Visualization</h3>
-                <div class="skill-list">
-                    <span class="skill-item">Power BI</span>
-                    <span class="skill-item">Excel</span>
-                    <span class="skill-item">Tableau</span>
-                    <span class="skill-item">SQL</span>
-                    <span class="skill-item">Pandas</span>
-                    <span class="skill-item">NumPy</span>
-                    <span class="skill-item">Seaborn</span>
-                </div>
-            </div>
-
-            <div class="skill-card">
-                <h3>🗄️ Databases & Cloud</h3>
-                <div class="skill-list">
-                    <span class="skill-item">MySQL</span>
-                    <span class="skill-item">MongoDB</span>
-                </div>
-            </div>
-
-            <div class="skill-card">
-                <h3>🛠️ Tools & Platforms</h3>
-                <div class="skill-list">
-                    <span class="skill-item">Git</span>
-                    <span class="skill-item">GitHub</span>
-                    <span class="skill-item">Flask</span>
-                </div>
-            </div>
+          </div>
         </div>
-    </section>
 
-    <section id="achievements">
-        <h2 class="section-title">Achievements & Certifications</h2>
-        <div class="achievements-grid">
-            <div class="achievement-card">
-                <h4>📜 Data Analysis with Python</h4>
-                <p>IBM SkillsBuild (2025)</p>
+        {/* Contact Section */}
+        <div ref={contactRef} className="bg-white bg-opacity-10 backdrop-blur-lg rounded-2xl p-8 text-white scroll-mt-4">
+          <div className="flex items-center gap-3 mb-6">
+            <Mail className="w-8 h-8 text-purple-400" />
+            <h2 className="text-3xl font-bold">Get In Touch</h2>
+          </div>
+          <p className="text-lg text-gray-300 mb-8">
+            I'm actively seeking opportunities in data analytics and full-stack development. Whether you have a project in mind, want to discuss opportunities, or just want to connect, feel free to reach out!
+          </p>
+          <div className="space-y-4">
+            <div className="flex items-center gap-4">
+              <Mail className="w-6 h-6 text-purple-400" />
+              <a href="mailto:avinashreddy600@gmail.com" className="text-lg hover:text-purple-400 transition">
+                avinashreddy600@gmail.com
+              </a>
             </div>
-            <div class="achievement-card">
-                <h4>📈 Data Visualization</h4>
-                <p>TATA Group (2024)</p>
+            <div className="flex items-center gap-4">
+              <Phone className="w-6 h-6 text-purple-400" />
+              <span className="text-lg">+91 79975 62534</span>
             </div>
-            <div class="achievement-card">
-                <h4>🌐 Full Stack Web Development</h4>
-                <p>IBM SkillsBuild (2024)</p>
+            <div className="flex items-center gap-4">
+              <MapPin className="w-6 h-6 text-purple-400" />
+              <span className="text-lg">Hyderabad, Telangana, India</span>
             </div>
-            <div class="achievement-card">
-                <h4>☕ Java Programming</h4>
-                <p>Udemy (2023)</p>
+            <div className="flex items-center gap-4">
+              <Linkedin className="w-6 h-6 text-purple-400" />
+              <a href="https://www.linkedin.com/in/avinash-reddy-nalla-1786a4233" target="_blank" rel="noopener noreferrer" className="text-lg hover:text-purple-400 transition">
+                LinkedIn Profile
+              </a>
             </div>
-            <div class="achievement-card">
-                <h4>💼 Career Edge: Young Professional</h4>
-                <p>TCS iON (2023)</p>
+            <div className="flex items-center gap-4">
+              <Github className="w-6 h-6 text-purple-400" />
+              <a href="https://github.com/Avinashreddy001" target="_blank" rel="noopener noreferrer" className="text-lg hover:text-purple-400 transition">
+                GitHub Profile
+              </a>
             </div>
-            <div class="achievement-card">
-                <h4>🏆 Innovative India Coding Championship</h4>
-                <p>Coding Ninjas (2023)</p>
-            </div>
-            <div class="achievement-card">
-                <h4>📝 Research Paper Presentation</h4>
-                <p>AI-Enhanced Learning at 3rd International Conference on Multifunctional Materials (2024)</p>
-            </div>
-            <div class="achievement-card">
-                <h4>💡 Design Thinking Workshop</h4>
-                <p>IUCEE</p>
-            </div>
-            <div class="achievement-card">
-                <h4>🤖 Machine Learning Challenge</h4>
-                <p>Hackathon 2023</p>
-            </div>
-            <div class="achievement-card">
-                <h4>⚡ 24-hour Full-stack Development</h4>
-                <p>Web Development Hackathon 2023</p>
-            </div>
+          </div>
+          <div className="mt-8 flex gap-4 flex-wrap">
+            <a
+              href="mailto:avinashreddy600@gmail.com"
+              className="inline-block px-8 py-3 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full text-white font-semibold hover:shadow-lg hover:scale-105 transition"
+            >
+              Send Email
+            </a>
+            <a
+              href="https://www.linkedin.com/in/avinash-reddy-nalla-1786a4233"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block px-8 py-3 bg-white bg-opacity-10 rounded-full text-white font-semibold hover:bg-opacity-20 transition"
+            >
+              Connect on LinkedIn
+            </a>
+          </div>
         </div>
-    </section>
-
-    <section id="contact">
-        <h2 class="section-title">Get In Touch</h2>
-        <div class="contact-section">
-            <div class="contact-info">
-                <div class="contact-card">
-                    <h3>📧 Email</h3>
-                    <a href="mailto:avinashreddy600@gmail.com">avinashreddy600@gmail.com</a>
-                </div>
-                <div class="contact-card">
-                    <h3>📱 Phone</h3>
-                    <a href="tel:+917997562534">+91 79975 62534</a>
-                </div>
-                <div class="contact-card">
-                    <h3>💼 LinkedIn</h3>
-                    <a href="https://linkedin.com/in/avinash-reddy-nalla-1786a4233" target="_blank">Connect with me</a>
-                </div>
-                <div class="contact-card">
-                    <h3>💻 GitHub</h3>
-                    <a href="https://github.com/Avinashreddy001" target="_blank">View my code</a>
-                </div>
-            </div>
-
-            <form class="contact-form">
-                <div class="form-group">
-                    <label for="name">Name</label>
-                    <input type="text" id="name" name="name" required>
-                </div>
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email" required>
-                </div>
-                <div class="form-group">
-                    <label for="message">Message</label>
-                    <textarea id="message" name="message" required></textarea>
-                </div>
-                <button type="submit" class="submit-button">Send Message</button>
-            </form>
-        </div>
-    </section>
-
-    <footer>
-        <p>&copy; 2025 Avinash Reddy Nalla. All rights reserved.</p>
-        <p style="margin-top: 10px; font-size: 14px;">Hyderabad, India</p>
-    </footer>
-
-    <script>
-        const navbar = document.getElementById('navbar');
-        
-        window.addEventListener('scroll', function() {
-            if (window.scrollY > 50) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
-        });
-
-        document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-
-        document.querySelector('.contact-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('Thank you for your message! I will get back to you soon.');
-            e.target.reset();
-        });
-
-        const cards = document.querySelectorAll('.project-card, .skill-card, .achievement-card, .timeline-item');
-        
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver(function(entries) {
-            entries.forEach(function(entry) {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, observerOptions);
-
-        cards.forEach(function(card) {
-            card.style.opacity = '0';
-            card.style.transform = 'translateY(20px)';
-            card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-            observer.observe(card);
-        });
-    </script>
-</body>
-</html>
-
-
-
-
-
+      </div>
+    </div>
+  );
+}
